@@ -25,21 +25,21 @@ const App = () => {
   useEffect(() => {
     // Formatiranje podataka za grafikon samo ako postoje podaci
     if (data.length > 0) {
-      const chartLabels = data.map((entry) => {
-        const date = new Date(entry.dt * 1000);
-        return date.toLocaleDateString('en-GB'); // Formatiraj datum u "dd/MM/yy"
-      });
+      const chartLabels = data.map((_, index) => (index + 1).toString()); // Indeks + 1 kao labela
 
-      const chartTemperatureData = data.map((entry) => entry.main.temp+ Math.random()*2);
+      const chartTemperatureData = data.map((entry) => entry.average_temperature );
 
       setChartData({
         labels: chartLabels,
         datasets: [
           {
-            label: 'Temperatura',
+            label: 'Prosečna temperatura',
             data: chartTemperatureData,
             fill: false,
-            borderColor: 'rgba(75,192,192,1)',
+            //borderColor: 'rgba(75,192,192,1)',
+            backgroundColor: 'rgba(11, 156, 49, 0.4)',
+            borderColor: 'rgba(255, 0, 0, 0.6)',
+            borderWidth: 2,
             tension: 0.1,
             elements: {
               point: {
@@ -59,6 +59,14 @@ const App = () => {
     <div>
       {/* Prikazivanje grafikona samo ako postoje podaci */}
       {chartData && <Line data={chartData} />}
+      {/* Prikazivanje prosečne temperature pored prethodnih */}
+      {data.length > 0 && (
+        <ul>
+          {data.map((entry, index) => (
+            <li key={index}>Prosečna temperatura {index + 1}: {entry.average_temperature}</li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };

@@ -2,7 +2,7 @@ from kafka import KafkaConsumer
 import requests, json
 
 # Initialize Kafka consumer
-consumer = KafkaConsumer('topic1', bootstrap_servers='localhost:9092', group_id='my-group')
+consumer = KafkaConsumer('topic2', bootstrap_servers='localhost:9092', group_id='my-group')
 
 # Initialize Node.js server endpoint
 nodejs_server_url = 'http://localhost:8000/api/receive-data'
